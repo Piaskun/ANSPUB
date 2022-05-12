@@ -1,0 +1,28 @@
+--- volume.py	2022-05-12 09:01:47.057921052 -0500
++++ collections/ansible_collections/dellemc/unity/plugins/modules/volume.py	2022-05-12 09:07:50.149578348 -0500
+@@ -572,6 +572,7 @@
+ 
+             description = self.module.params['description']
+             compression = self.module.params['compression']
++            advanced_dedup = self.module.params['advanced_dedup']
+             is_thin = self.module.params['is_thin']
+             snap_schedule = None
+ 
+@@ -598,7 +599,8 @@
+                                           tiering_policy=tiering_policy,
+                                           snap_schedule=snap_schedule,
+                                           io_limit_policy=io_limit_policy,
+-                                          is_compression=compression)
++                                          is_compression=compression,
++                                          is_advanced_dedup_enabled=advanced_dedup)
+ 
+             LOG.info("Successfully created volume , %s", obj_vol)
+ 
+@@ -1149,6 +1151,7 @@
+         cap_unit=dict(required=False, type='str', choices=['GB', 'TB']),
+         is_thin=dict(required=False, type='bool'),
+         compression=dict(required=False, type='bool'),
++        advanced_dedup=dict(required=False, type='bool'),
+         sp=dict(required=False, type='str', choices=['SPA', 'SPB']),
+         io_limit_policy=dict(required=False, type='str'),
+         snap_schedule=dict(required=False, type='str'),

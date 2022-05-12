@@ -1,0 +1,13 @@
+--- storagepool.py	2022-05-12 08:17:53.014894550 -0500
++++ collections/ansible_collections/dellemc/unity/plugins/modules/storagepool.py	2022-05-12 08:19:49.002424071 -0500
+@@ -356,8 +356,8 @@
+             api_response = self.conn.get_pool(_id=pool_id, name=pool_name)
+             details = api_response._get_properties()
+ 
+-            is_fast_vp_enabled = api_response._get_property_from_raw(
+-                'pool_fast_vp').is_schedule_enabled
++            is_fast_vp_enabled = getattr(api_response._get_property_from_raw(
++                'pool_fast_vp'), 'is_schedule_enabled', False)
+             details['is_fast_vp_enabled'] = is_fast_vp_enabled
+ 
+             details['size_free_with_unit'] = utils.\
